@@ -15,8 +15,13 @@ OUTPUT_FILE = './output.png'
 def get_frame(cap: cv2.VideoCapture):
     state, frame = cap.read()
     if state:
+        # TODO: Implement frame cropping, to maintain aspect ratio
         frame = cv2.resize(frame, (320, 320))
-        return cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        # NanoDet takes BGR format pixel as input
+        # and OpenCV use BGR internally
+        # so no color format convert needed
+        ### return cv2.cvtColor(frame, cv2.COLOR_BGR2RGB) ###
+        return frame
     raise Exception('Capture FAILED!')
 
 
@@ -84,7 +89,10 @@ def run():
         raise Exception('RKNN Runtime init FAILED!')
     img = cv2.imread('../dataset/test_img.jpg')
     img = cv2.resize(img, (320, 320))
-    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    # NanoDet takes BGR format pixel as input
+    # and OpenCV use BGR internally
+    # so no color format convert needed
+    ### img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB) ###
     output = rknn.inference(inputs=[img])
     print(type(output), output)
     rknn.release()
