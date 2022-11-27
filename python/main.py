@@ -3,6 +3,8 @@ import cv2
 import platform
 import numpy as np
 
+# TODO: Refactor these hard-coded constants below
+#       to arguments of this script
 VIDEO_DEV_NUM = 1
 TARGET_PLATFORM = 'rk3588'
 OUTPUT_FILE = './output.png'
@@ -33,6 +35,8 @@ def run_lite():
     # img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     print('--> Init camera')
     cap = cv2.VideoCapture(VIDEO_DEV_NUM)
+    # TODO: Set attributes of `cap`
+    # Like resolution, cap format, exposure time, etc.
     while True:
         img = get_frame(cap)
         output = rknn_lite.inference(inputs=[img])
