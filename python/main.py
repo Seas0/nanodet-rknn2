@@ -3,6 +3,8 @@ import cv2
 import platform
 import numpy as np
 
+# TODO: Remove all hard-coded path references
+
 # TODO: Refactor these hard-coded constants below
 #       to arguments of this script
 VIDEO_DEV_NUM = 1
@@ -60,17 +62,17 @@ def run():
                 single_core_mode=True)
     print('--> Loading model')
     try:
-        ret = rknn.load_rknn('./model/nanodet-plus-m_320.rknn')
+        ret = rknn.load_rknn('../model/nanodet-plus-m_320.rknn')
         if ret != 0:
             raise Exception('Load RKNN model FAILED!')
     except:
-        rknn.load_onnx(model='./model/nanodet-plus-m_320.onnx')
+        rknn.load_onnx(model='../model/nanodet-plus-m_320.onnx')
         print('--> Building ONNX model')
         ret = rknn.build(do_quantization=False)
         if ret != 0:
             raise Exception('Build ONNX model FAILED!')
         print('--> Export to RKNN model')
-        ret = rknn.export_rknn('./model/nanodet-plus-m_320.rknn')
+        ret = rknn.export_rknn('../model/nanodet-plus-m_320.rknn')
         if ret != 0:
             raise Exception('Export RKNN model FAILED!')
 
